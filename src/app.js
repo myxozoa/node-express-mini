@@ -15,7 +15,8 @@ const readWords = () => {
   return contents.split('\n');
 };
 const randomWords = readWords();
-const randomWord = randomWords[Math.floor(Math.random() * randomWords.length)];
+// const randomWord = randomWords[Math.floor(Math.random() * randomWords.length)];
+const randomWord = 'test';
 let guessingWord = '';
 const numOfGuesses = 8;
 let numGuessesUsed = 0;
@@ -36,7 +37,7 @@ server.get('/guess', (req, res) => {
 
 server.post('/guess', (req, res) => {
   let { letter } = req.body;
-  letter = String(letter);
+  letter = String(letter).toLowerCase();
   // checks to see if letter is a character and if it's one character
   if (letter.match("^[a-zA-Z\(\)]+$") && letter.length === 1) {
     // checks to see if letter was already guessed
@@ -70,7 +71,7 @@ server.post('/guess', (req, res) => {
         } else {
           numGuessesUsed++;
           res.send({
-            error: `Error message: Letter ${letter} Was Not Found; 
+            error: `Error message: Letter ${letter} Was Not Found;
           word so far is ${output.wordSoFar};
           number of guesses left is: ${numOfGuesses - numGuessesUsed}`
           });
